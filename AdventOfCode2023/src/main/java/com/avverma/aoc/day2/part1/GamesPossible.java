@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +31,7 @@ public class GamesPossible {
                 for (String cube : cubes) {
                     String[] numAndColor = cube.trim().split(" ");  // [0] 3  [1] blue
                     int colorIdx = color2index.get(numAndColor[1]);
-                    maxColor[colorIdx] = Math.max(maxColor[colorIdx], Integer.valueOf(numAndColor[0]));
+                    maxColor[colorIdx] = Math.max(maxColor[colorIdx], Integer.parseInt(numAndColor[0]));
                 }
             }
             if(maxColor[0] <= red && maxColor[1] <= green && maxColor[2] <= blue) {

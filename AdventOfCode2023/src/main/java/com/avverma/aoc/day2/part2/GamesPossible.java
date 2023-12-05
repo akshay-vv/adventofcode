@@ -11,27 +11,25 @@ public class GamesPossible {
 
     public static void main(String[] args) {
         List<String> lines = readInput();
-
-        int red = 12, green = 13, blue =14;
-        System.out.println(solve(lines, red, green, blue));
+        System.out.println(solve(lines));
     }
 
-    private static int solve(List<String> lines, int red,int green,int blue) {
+    private static int solve(List<String> lines) {
         int power = 0;
 
         Map<String, Integer> color2index = Map.of("red", 0, "green", 1, "blue", 2);
 
-        for (int gameNum = 0 ; gameNum < lines.size(); gameNum++) {
+        for (String line: lines) {
             // Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
 
-            String[] sets = lines.get(gameNum).split(":")[1].split(";");  // [0] 3 blue, 4 red  [1] 1 red, 2 green, 6 blue [2] 2 green
+            String[] sets = line.split(":")[1].split(";");  // [0] 3 blue, 4 red  [1] 1 red, 2 green, 6 blue [2] 2 green
             int[] maxColor = new int[3];
             for (String set: sets) {
                 String[] cubes = set.split(","); // // [0] 3 blue [1] 4 red
                 for (String cube : cubes) {
                     String[] numAndColor = cube.trim().split(" ");  // [0] 3  [1] blue
                     int colorIdx = color2index.get(numAndColor[1]);
-                    maxColor[colorIdx] = Math.max(maxColor[colorIdx], Integer.valueOf(numAndColor[0]));
+                    maxColor[colorIdx] = Math.max(maxColor[colorIdx], Integer.parseInt(numAndColor[0]));
                 }
             }
             power += maxColor[0] *maxColor[1] * maxColor[2];
