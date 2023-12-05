@@ -79,7 +79,7 @@ public class Calibration {
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } 
+        }
         return input;
     }
 
