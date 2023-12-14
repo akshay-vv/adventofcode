@@ -1,4 +1,4 @@
-package com.avverma.aoc.day12;
+package com.avverma.aoc.day12.part1;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
