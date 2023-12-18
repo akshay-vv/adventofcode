@@ -93,7 +93,7 @@ public class PipeMaze {
     }
 
     static Character[][] readInput() {
-        try(BufferedReader br = new BufferedReader(new FileReader("src/main/java/com/avverma/aoc/day10/input.txt"))) {
+        try(BufferedReader br = new BufferedReader(new FileReader("src/main/java/com/avverma/aoc/day10/example_input.txt"))) {
             List<Character[]> input = new ArrayList<>();
             String line = br.readLine();
             while(line != null) {
