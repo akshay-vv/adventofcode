@@ -29,15 +29,11 @@ public class GuardGallivant {
 
     boolean hasLoop(int i, int j, int dir) {
         int nIterations = 0;
-        while(!(i<0 || j < 0 || i >= grid.length || j >= grid[0].length)) {
-            if (nIterations == (grid.length * grid[0].length *4) + 1) {
-                // Detected Loop
-                return true;
-            }
-            do {
+        while(nIterations != (grid.length * grid[0].length *4) + 1) {
+            while (i >= 0 && j >= 0 && i < grid.length && j < grid[0].length && (grid[i][j] == '.' || grid[i][j] == '^')) {
                 i += directions[dir][0];
                 j += directions[dir][1];
-            } while (i >= 0 && j >= 0 && i < grid.length && j < grid[0].length && (grid[i][j] == '.' || grid[i][j] == '^'));
+            }
 
             // Out of bounds - exit grid
             if (i<0 || j < 0 || i >= grid.length || j >= grid[0].length ) {
@@ -56,7 +52,7 @@ public class GuardGallivant {
             nIterations++;
         }
 
-        return false;
+        return true;
     }
 
     int[] startPos() {
@@ -79,7 +75,7 @@ public class GuardGallivant {
     }
 
     private void parseInput() {
-        try (BufferedReader br = new BufferedReader(new FileReader("aoc/src/main/java/com/avverma/_2024/day6/example_input.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("aoc/src/main/java/com/avverma/_2024/day6/input.txt"))) {
             String line = br.readLine();
             List<char[]> grid = new ArrayList<>();
             while (line != null) {
