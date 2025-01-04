@@ -12,7 +12,6 @@ public class ClawContraption {
 
     List<Puzzle> puzzles;
 
-    record Solution(int area, int perimeter) {}
     long solve() {
 
         long ans = 0;

@@ -7,26 +7,23 @@ import java.util.List;
 
 public class ClawContraption {
 
-    record Xy(int x, int y) {}
+    record Xy(long x, long y) {}
 
     record Puzzle(Xy a, Xy b, Xy answer) {}
 
     List<Puzzle> puzzles;
 
-    record Solution(int area, int perimeter) {}
     long solve() {
 
         long ans = 0;
         for (Puzzle p : puzzles) {
+            long ax = p.a.x, ay = p.a.y, bx = p.b.x, by = p.b.y, rx = p.answer.x, ry = p.answer.y;
 
-            for (int i = 0; i < 101; i++) {
-                for (int j = 0; j < 101; j++) {
-                    int xSum = p.a.x*i + p.b.x*j;
-                    int ySum = p.a.y*i + p.b.y*j;
-                    if (xSum == p.answer.x && ySum == p.answer.y) {
-                        ans += (i*3 + j*1);
-                    }
-                }
+            double nAbutton = (double)(bx*ry - by*rx) / (double)(ay*bx - ax*by);
+            double nBbutton = (double)(ay*rx - ax*ry) / (double)(ay*bx - ax*by);
+
+            if (nAbutton%1 == 0 && nBbutton%1 == 0) {
+                ans += (long)nAbutton*3 + (long)nBbutton;
             }
         }
         return ans;
@@ -55,7 +52,7 @@ public class ClawContraption {
 
                 line = br.readLine();
                 String[] xys = line.split(":")[1].trim().split(",");
-                Xy ans = new Xy(Integer.parseInt(xys[0].split("=")[1].trim()), Integer.parseInt(xys[1].split("=")[1].trim()));
+                Xy ans = new Xy(Long.parseLong(xys[0].split("=")[1].trim())+10000000000000L, Long.parseLong(xys[1].split("=")[1].trim()) + 10000000000000L);
 
                 puzzles.add(new Puzzle(a, b, ans));
                 line = br.readLine();
