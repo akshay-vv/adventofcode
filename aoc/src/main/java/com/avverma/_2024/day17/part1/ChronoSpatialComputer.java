@@ -16,21 +16,40 @@ public class ChronoSpatialComputer {
 
     int IP = 0;
 
+
+    public static void main(String[] args) {
+        ChronoSpatialComputer rr = new ChronoSpatialComputer();
+        rr.parseInput();
+
+        System.out.println("\n" + rr.solve());
+    }
+
     String solve() {
 
+        // 2,4,1,7,7,5,0,3,1,7,4,1,5,5,3,0
+        // 2, 4:    B = A % 8  // Last 3 bits of A. n%8 == n&0b111 0..7             B=2 = 010
+        // 1, 7     B = B ^ 7  // Flip the lower 3 bits                             B=5 = 101
+        // 7, 5     C = A >> B                                                      C=1 =
+        // 0, 3     A = A >> 3 // Divide by 2^3                                     A=7
+        // 1, 7     B = B ^ 7  // Reset lower 3 bits of B to 0                      B=2
+        // 4, 1     B = B ^ C  // Flip B with C's                                   B=C = 1
+        // 5, 5     print(B%8) // Print remainder B/8                               0 1
+        // 3, 0     Repeat from begin until a==0
+
         while(IP < SOURCE.length) {
-            switch (SOURCE[IP++]) {
-                case 0: adv(); break;
-                case 1: bxl(); break;
-                case 2: bst(); break;
-                case 3: jnz(); break;
-                case 4: bxc(); break;
-                case 5: out(); break;
-                case 6: bdv(); break;
-                case 7: cdv(); break;
+            int op = SOURCE[IP++];
+            int operand = SOURCE[IP++];
+            switch (op) {
+                case 0: REGISTER_A >>= combo(operand); break;
+                case 1: REGISTER_B ^= operand; break;
+                case 2: REGISTER_B = combo(operand) % 8; break;
+                case 3: if (REGISTER_A != 0) { IP = operand;} break;
+                case 4: REGISTER_B ^= REGISTER_C; break;
+                case 5: solution.add(combo(operand) % 8); break;
+                case 6: REGISTER_B = REGISTER_A >> combo(operand); break;
+                case 7: REGISTER_C = REGISTER_A >> combo(operand); break;
             }
         }
-
         System.out.println();
         System.out.println("REGISTER_A: " + REGISTER_A);
         System.out.println("REGISTER_B: " + REGISTER_B);
@@ -114,7 +133,7 @@ public class ChronoSpatialComputer {
          */
         long out = combo(SOURCE[IP++]) % 8;
 
-        System.out.printf("%d,", out);
+        solution.add(out);
     }
 
 
@@ -135,12 +154,6 @@ public class ChronoSpatialComputer {
         REGISTER_C = REGISTER_A / (0x1 << combo(SOURCE[IP++]));
     }
 
-    public static void main(String[] args) {
-        ChronoSpatialComputer rr = new ChronoSpatialComputer();
-        rr.parseInput();
-
-        System.out.println("\n" + rr.solve());
-    }
 
     private void parseInput() {
         try (BufferedReader br = new BufferedReader(new FileReader("aoc/src/main/java/com/avverma/_2024/day17/input.txt"))) {
