@@ -1,4 +1,4 @@
-package com.avverma._2025.day1.part1.part2;
+package com.avverma._2025.day1.part2;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -11,6 +11,7 @@ public class SecretEntrance {
     public static void main(String[] args) {
         System.out.printf("\nAnswer %d", new SecretEntrance().solve());
     }
+
 
     private int solve() {
         int[] input = readInput();
