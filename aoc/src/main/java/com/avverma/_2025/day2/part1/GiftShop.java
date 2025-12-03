@@ -33,6 +33,8 @@ public class GiftShop {
             // Has to be even number of digits
             return false;
         }
+
+
         int half = digits.size() /2;
         for (int j = 0; j < half; j++) {
             if(digits.get(j) != digits.get(j+half)) {
@@ -41,6 +43,7 @@ public class GiftShop {
         }
         return true;
     }
+
 
     private long[][] readInput() {
         try(BufferedReader br = new BufferedReader(new FileReader("src/main/java/com/avverma/_2025/day2/part1/input.txt"))) {
